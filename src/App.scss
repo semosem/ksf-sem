@@ -1,0 +1,22 @@
+.App {
+  position: relative;
+  &__header {
+    position: fixed;
+    height: 5.6rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top: 10px solid #f07e26;
+    border-bottom: 2px solid #e0e0e0;
+    &-navigation {
+      padding: 1.5rem 0 0 2rem;
+      height: 100vh;
+      width: 10rem;
+    }
+  }
+  &__carousel {
+    border: 1px solid;
+    margin-top: calc(5.6rem + 12px);
+    height: 5rem;
+  }
+}
