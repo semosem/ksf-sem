@@ -3,15 +3,16 @@ import { useEffect, useState } from "react";
 import Lettera from "letteraa";*/
 import { Carousel } from "react-responsive-carousel";
 import HblLogo from "./components/HblLogo";
-import { fetchArticles } from "./helpers/fetchArticles";
+import Article from "./components/Article/index";
+import { fetchArticles, fetchSingleArticle } from "./helpers/fetchArticles";
 import "./App.scss";
 
 function App() {
-  const [articles, setFetchedArticles] = useState([]);
-  const [currentArticle, setCurrentArticle] = useState({});
+  const [articles, setArticles] = useState([[], [], []]);
+  const [currentArticle, setCurrentArticle] = useState(null);
   useEffect(() => {
-    fetchArticles().then(res => setFetchedArticles(res));
     // TODO: find work around for Error - Request has been terminated
+    // when using generated clients
     /*
     const apiInstance = new Lettera.ListsApi();
     const opts = {
@@ -31,8 +32,15 @@ function App() {
     apiInstance.frontpageGet(opts, callback);
     */
     // use swagger end points instead
+    fetchArticles().then(res => setArticles(res));
   }, []);
-  console.log({ articles, Carousel });
+
+  const handleLoadArticle = articleUid => {
+    fetchSingleArticle(articleUid).then(article => setCurrentArticle(article));
+  };
+
+  const [latestArticles, mostreadArticles, frontpageArticles] = articles;
+  console.log(currentArticle.not_entitled);
   return (
     <div className="App">
       <header className="App__header">
@@ -42,12 +50,19 @@ function App() {
         </section>
       </header>
       <main className="App__main-wrapper">
-        <section className="App__carousel">
-          <Carousel showArrows={true}></Carousel>
-        </section>
-        {articles.map(article => {
-          // return <p>{article.title}</p>;
-        })}
+        {/* most read carousel */}
+        <section className="App__carousel">{}</section>
+        {/*frontpage article list */}
+        {frontpageArticles.length &&
+          frontpageArticles.map(article => (
+            <Article
+              key={article.uuid}
+              article={article}
+              handleLoadArticle={handleLoadArticle}
+            />
+          ))}
+        {/* lastest articles */}
+        <section className="recommended"></section>
       </main>
     </div>
   );
