@@ -1,5 +1,9 @@
 .App {
   position: relative;
+  &.main {
+    &-wrapper {
+    }
+  }
   &__header {
     position: fixed;
     height: 5.6rem;
