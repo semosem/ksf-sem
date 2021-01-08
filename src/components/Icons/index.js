@@ -16,4 +16,9 @@ const HblLogo = () => (
   </svg>
 );
 
-export default HblLogo;
+const Rect = () => (
+  <svg width="20" height="20" fill="#f07e26">
+    <rect width="20" height="20"></rect>
+  </svg>
+);
+export { HblLogo, Rect };
