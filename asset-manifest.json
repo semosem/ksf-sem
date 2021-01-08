@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ksf-sem/static/css/main.19d3e9e7.chunk.css",
+    "main.js": "/ksf-sem/static/js/main.53b0d12d.chunk.js",
+    "main.js.map": "/ksf-sem/static/js/main.53b0d12d.chunk.js.map",
+    "runtime-main.js": "/ksf-sem/static/js/runtime-main.fd934397.js",
+    "runtime-main.js.map": "/ksf-sem/static/js/runtime-main.fd934397.js.map",
+    "static/js/2.e7bb3079.chunk.js": "/ksf-sem/static/js/2.e7bb3079.chunk.js",
+    "static/js/2.e7bb3079.chunk.js.map": "/ksf-sem/static/js/2.e7bb3079.chunk.js.map",
+    "static/js/3.79583a23.chunk.js": "/ksf-sem/static/js/3.79583a23.chunk.js",
+    "static/js/3.79583a23.chunk.js.map": "/ksf-sem/static/js/3.79583a23.chunk.js.map",
+    "index.html": "/ksf-sem/index.html",
+    "static/css/main.19d3e9e7.chunk.css.map": "/ksf-sem/static/css/main.19d3e9e7.chunk.css.map",
+    "static/js/2.e7bb3079.chunk.js.LICENSE.txt": "/ksf-sem/static/js/2.e7bb3079.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fd934397.js",
+    "static/js/2.e7bb3079.chunk.js",
+    "static/css/main.19d3e9e7.chunk.css",
+    "static/js/main.53b0d12d.chunk.js"
+  ]
+}
