@@ -1,26 +1,75 @@
 .App {
   position: relative;
-  &.main {
-    &-wrapper {
-    }
-  }
   &__header {
     position: fixed;
-    height: 5.6rem;
-    top: 0;
-    left: 0;
-    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    width: 10rem;
+    // border-left: 10px solid #f07e26;
+    border-right: 1px solid #e0e0e0;
     border-top: 10px solid #f07e26;
-    border-bottom: 2px solid #e0e0e0;
     &-navigation {
+      // position: absolute;
       padding: 1.5rem 0 0 2rem;
-      height: 100vh;
-      width: 10rem;
+      // width: 10rem;
     }
   }
-  &__carousel {
-    border: 1px solid;
-    margin-top: calc(5.6rem + 12px);
-    height: 5rem;
+  &__subscribe {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    border-top: 1px dotted #00a1ab;
+    // padding: 2rem;
+    font: bold 0.7rem "Roboto", sans-serif;
+    h2 {
+      background: #00a1ab;
+      margin: 1rem;
+      text-align: center;
+      padding: 2px;
+      border-radius: 2px;
+      color: ghostwhite;
+    }
+  }
+  &__main-wrapper {
+    // carousel for most read articles
+    // border: 1px solid lime;
+    margin-left: 12rem;
+    position: relative;
+    .carousel {
+      height: 5rem;
+    }
+    // list of front page articles
+    .frontpage-list {
+      width: 55vw;
+    }
+    // list of suggested articles
+    .latest-list {
+      position: absolute;
+      display: grid;
+      width: 20rem;
+      top: 5rem;
+      right: 2rem;
+      height: calc(100vh - 6rem);
+      overflow: scroll;
+      border: solid 1px #e0e0e0;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .header {
+        border-bottom: solid 1px #e0e0e0;
+        border-top: 5px solid #f07e26;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        h1 {
+          font: bold 0.7rem "Roboto", sans-serif;
+          margin-left: 10px;
+        }
+      }
+    }
+    .sticky {
+      position: fixed;
+      top: 0;
+    }
   }
 }

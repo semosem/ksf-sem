@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap");
+.Article {
+  // border: 1px solid lime;
+  figure {
+    margin-left: 0;
+  }
+  a {
+    font: 700 12px "Roboto", sans-serif;
+    color: #f07e26;
+    text-decoration: none;
+  }
+  &__header {
+    h2 {
+      font-family: "Lato", sans-serif;
+      font-size: 2.25rem;
+      line-height: 1.1;
+      font-weight: lighter;
+    }
+    .list_title {
+      font: bold 0.7rem "Roboto", sans-serif;
+    }
+  }
+  &__image {
+    &-rounded {
+      img {
+        // border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        height: auto;
+      }
+    }
+  }
+}
