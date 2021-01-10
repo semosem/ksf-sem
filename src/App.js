@@ -2,17 +2,23 @@ import { useEffect, useState } from "react";
 /* published lettera
 import Lettera from "letteraa";*/
 import classnames from "classnames";
+import { connect } from "react-redux";
 import { Carousel } from "react-responsive-carousel";
 import { HblLogo, Rect } from "./components/Icons/index";
+import LoginForm from "./components/LoginForm/index";
 import Article from "./components/Article/index";
-import List from "./components/List/index";
-import { fetchArticles, fetchSingleArticle } from "./helpers/fetchArticles";
+import { fetchArticles, fetchSingleArticle, fetchUser } from "./actions/index";
 import "./App.scss";
 
-function App() {
-  const [articles, setArticles] = useState([[], [], []]);
-  const [currentArticle, setCurrentArticle] = useState(null);
+function App(props) {
   const [scrollTop, setScrollTop] = useState(null);
+  const [screenWidth, setScreenWidth] = useState(null);
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    password: ""
+  });
+  const [showLoginForm, setShowLoginForm] = useState(null);
+
   useEffect(() => {
     // TODO: find work around for Error - Request has been terminated
     // when using generated clients
@@ -34,38 +40,62 @@ function App() {
     };
     apiInstance.frontpageGet(opts, callback);
     */
-    // use swagger end points instead
-    fetchArticles().then(res => setArticles(res));
-
+    /*--------------------
+    use swagger end points instead
+    --------------------*/
+    props.onLoad();
+    // listeners
     const scrollListener = document.addEventListener("scroll", () => {
       const latestListScrollTop = window.scrollY;
       window.requestAnimationFrame(() => setScrollTop(latestListScrollTop));
     });
+    const resizeListener = window.addEventListener("resize", () => {
+      window.requestAnimationFrame(() => setScreenWidth(window.innerWidth));
+    });
 
     return () => {
-      // eslint-disable-line consistent-return
+      window.removeEventListener("resize", resizeListener);
       document.removeEventListener("scroll", scrollListener);
     };
   }, []);
 
   const handleLoadArticle = articleUid => {
-    fetchSingleArticle(articleUid).then(article => setCurrentArticle(article));
+    props.fetchSingle(articleUid);
+  };
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setUserInfo({
+      ...userInfo,
+      [name]: value
+    });
+  };
+
+  const handleLogin = e => {
+    e.preventDefault();
+    props.onLogin(userInfo);
   };
 
   const stickysidebar = classnames("latest-list", {
-    sticky: scrollTop >= 75
+    sticky: scrollTop >= 75,
+    hiden: screenWidth && screenWidth < 1200
   });
-
-  const [latestArticles, mostreadArticles, frontpageArticles] = articles;
-
+  const { allArticles, currentArticle } = props;
+  const { http_status } = currentArticle || "";
+  const [latestArticles, mostreadArticles, frontpageArticles] = allArticles;
+  console.log({ currentArticle });
   return (
     <div className="App">
       <header className="App__header">
         <section className="App__header-navigation">
           <HblLogo />
         </section>
-        <section className="App__subscribe">
-          <h2>Subscribe</h2>
+        <section
+          className="App__subscribe"
+          role="button"
+          onClick={() => setShowLoginForm(true)}
+        >
+          <h2>Login</h2>
         </section>
       </header>
       <main className="App__main-wrapper">
@@ -74,7 +104,7 @@ function App() {
         {/*frontpage article list */}
         {!currentArticle ? (
           <section className="frontpage-list">
-            {frontpageArticles.length &&
+            {frontpageArticles.length > 0 &&
               frontpageArticles.map(article => (
                 <Article
                   key={article.uuid}
@@ -89,6 +119,7 @@ function App() {
             <Article
               key={currentArticle.uuid}
               article={currentArticle}
+              status={http_status === "Forbidden"}
               isArticleView={true}
               handleLoadArticle={() => {}}
             />
@@ -100,18 +131,36 @@ function App() {
             <Rect />
             <h1>LATEST ARTICLES</h1>
           </header>
-          {latestArticles.length &&
-            latestArticles.map(article => (
-              <List
-                key={article.uuid}
-                article={article}
-                handleLoadArticle={handleLoadArticle}
-              />
-            ))}
+          <section className="Article_list">
+            {mostreadArticles.length > 0 &&
+              mostreadArticles.map(article => (
+                <Article
+                  key={article.uuid}
+                  article={article}
+                  isList={true}
+                  handleLoadArticle={handleLoadArticle}
+                />
+              ))}
+          </section>
         </section>
       </main>
+      <LoginForm
+        showLoginForm={showLoginForm}
+        setShowLoginForm={setShowLoginForm}
+        handleChange={handleChange}
+        handleLogin={handleLogin}
+      />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return state;
+};
+const mapActionsToProps = {
+  onLoad: fetchArticles,
+  fetchSingle: fetchSingleArticle,
+  onLogin: fetchUser
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(App);
