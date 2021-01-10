@@ -17,8 +17,6 @@ const ArticleBody = ({ body }) => {
     } else if (headline) {
       return <h3 className="preamble">{parse(headline)}</h3>;
     } else if (box) {
-      console.log({ box });
-
       return (
         <div className="box">
           <header>

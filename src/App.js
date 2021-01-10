@@ -83,7 +83,7 @@ function App(props) {
   const { allArticles, currentArticle } = props;
   const { http_status } = currentArticle || "";
   const [latestArticles, mostreadArticles, frontpageArticles] = allArticles;
-  console.log({ currentArticle });
+
   return (
     <div className="App">
       <header className="App__header">

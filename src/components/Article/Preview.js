@@ -14,7 +14,7 @@ const Preview = ({ preview, getFormatedTime }) => {
     authors,
     title
   } = preview;
-  console.log({ preview });
+
   return (
     <article className="Article">
       {tags && tags[0] && <a href="">{tags[0].toUpperCase()}</a>}
