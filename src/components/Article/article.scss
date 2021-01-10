@@ -1,33 +1,149 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap");
 .Article {
-  // border: 1px solid lime;
-  figure {
-    margin-left: 0;
-  }
+  background: #f5f5f5;
+  padding: 1rem;
+  margin: 1rem;
+  margin-top: 0;
+  padding-top: 0;
   a {
     font: 700 12px "Roboto", sans-serif;
     color: #f07e26;
     text-decoration: none;
   }
   &__header {
-    h2 {
-      font-family: "Lato", sans-serif;
+    .title {
+      font-family: "Roboto", sans-serif;
       font-size: 2.25rem;
-      line-height: 1.1;
-      font-weight: lighter;
+      font-weight: 900;
     }
     .list_title {
       font: bold 0.7rem "Roboto", sans-serif;
     }
   }
   &__image {
-    &-rounded {
+    margin-left: 0;
+    img {
+      border-radius: 0.25rem;
+    }
+    figcaption {
+      font: 400 14px "Roboto", sans-serif;
+      color: #6d7573;
+      padding: 0.5rem 0;
+      span {
+        font-weight: 900;
+        color: 999;
+      }
+    }
+    &-isList {
       img {
         // border-radius: 50%;
         width: 70px;
         height: 70px;
         height: auto;
       }
+    }
+  }
+  &__authors {
+    b {
+      color: #00698e;
+    }
+    span {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: #999;
+      white-space: nowrap;
+    }
+  }
+  &__preamble {
+    font: 300 1.25rem/1.365 "Roboto", sans-serif;
+    line-height: 1.2;
+  }
+  &__body {
+    p {
+      font: 300 12px "Roboto", sans-serif;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .bodyImage {
+      margin-left: 0;
+      width: 100%;
+      img {
+        width: 100%;
+        border: 1px solid #999;
+        border-bottom: none;
+        border-right: none;
+      }
+      figcaption {
+        background: white;
+        // width: 100%;
+        border: 1px solid #999;
+        border-top: none;
+        padding: 1rem;
+        border-radius: 0 0 0.25rem 0.25rem;
+      }
+    }
+    .box {
+      header {
+        border-bottom: 3px solid #f5f5f5;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 0 2rem;
+        box-sizing: border-box;
+        h4 {
+          text-transform: capitalize;
+        }
+      }
+      ul {
+        font: 300 12px "Roboto", sans-serif;
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 7rem;
+        li {
+        }
+      }
+      // border: 1px solid #999;
+      border-top: 5px solid #f07e26;
+      border-radius: 0.25rem 0.25rem 0 0;
+      padding: 2rem;
+      background: white;
+      position: relative;
+    }
+  }
+  &__isPremium {
+    background-color: #f07e26;
+    border-radius: 0.15rem;
+    padding: 0.05rem;
+    text-align: center;
+    color: white;
+  }
+}
+
+.Article__teaser {
+  position: relative;
+  // border: 1px solid lime;
+  // height: 90vh;
+  // overflow: hidden;
+  .paywall {
+    // position: absolute;
+    bottom: 0;
+    // height: 20rem;
+    // border: 1px solid lime;
+    text-align: center;
+    background: white;
+    border-radius: 1rem 1rem 0 0;
+    header {
+      padding: 1rem 0 2rem 0;
+      border-radius: 1rem 1rem 0 0;
+      background: #eceae6;
+    }
+    h1 {
+      font-family: "Roboto", sans-serif;
+      font-size: 1.25rem;
+      text-transform: uppercase;
     }
   }
 }
