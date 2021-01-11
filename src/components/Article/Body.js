@@ -20,10 +20,9 @@ const ArticleBody = ({ body }) => {
       return (
         <div className="box">
           <header>
-            <h4>{box.type}</h4>
+            <h2>{box.headline}</h2>
             <h2>{box.title}</h2>
           </header>
-          <h2>{box.headline}</h2>
           <ul>
             {box.content.map(boxContent => {
               return <li className="box_contnet">{parse(boxContent)}</li>;

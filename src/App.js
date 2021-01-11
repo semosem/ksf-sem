@@ -52,7 +52,9 @@ function App(props) {
     const resizeListener = window.addEventListener("resize", () => {
       window.requestAnimationFrame(() => setScreenWidth(window.innerWidth));
     });
-
+    window.addEventListener("popstate", event => {
+      console.log(document.location);
+    });
     return () => {
       window.removeEventListener("resize", resizeListener);
       document.removeEventListener("scroll", scrollListener);
@@ -119,7 +121,8 @@ function App(props) {
             <Article
               key={currentArticle.uuid}
               article={currentArticle}
-              status={http_status === "Forbidden"}
+              forbidden={http_status === "Forbidden"}
+              hasSubscription={localStorage.getItem("access_token")}
               isArticleView={true}
               handleLoadArticle={() => {}}
             />
@@ -145,10 +148,12 @@ function App(props) {
         </section>
       </main>
       <LoginForm
-        showLoginForm={showLoginForm}
+        showLoginForm={showLoginForm && props.user === null}
         setShowLoginForm={setShowLoginForm}
         handleChange={handleChange}
         handleLogin={handleLogin}
+        loading={props.loading}
+        invalidate={props.invalidate}
       />
     </div>
   );

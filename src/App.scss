@@ -141,7 +141,12 @@
       width: 360px;
       padding: 8% 0 0;
       margin: auto;
-      // border: 1px solid lime;
+      position: relative;
+      .error {
+        color: red;
+        position: absolute;
+        top: 3rem;
+      }
       input {
         font-family: "Roboto", sans-serif;
         outline: 0;
