@@ -19,13 +19,43 @@ const loadArticle = article => {
     }
   };
 };
-const recieveUserInfo = user => {
+const recieveUserInfo = userId => {
   return {
     type: types.USER_RECEIVE,
     payload: {
-      user
+      userId
     }
   };
+};
+const startFetchingUser = () => {
+  return {
+    type: types.USER_LOADING
+  };
+};
+const failFetchingUser = () => {
+  console.log("dispatched user info");
+  return {
+    type: types.USER_FETCH_FAIL
+  };
+};
+
+const setSession = resResult => {
+  localStorage.setItem("access_token", resResult.token);
+  localStorage.setItem("userId", resResult.uuid);
+};
+
+const handleAuthentication = () => {
+  const accessToken = localStorage.getItem("access_token");
+  const uuid = localStorage.getItem("userId");
+  if (accessToken && uuid) {
+    return {
+      headers: {
+        AuthUser: `${uuid}`,
+        Authorization: `OAuth ${accessToken}`
+      }
+    };
+  }
+  return null;
 };
 
 export const fetchArticles = () => async dispatch => {
@@ -38,38 +68,52 @@ export const fetchArticles = () => async dispatch => {
 };
 
 export const fetchUser = userInfo => async dispatch => {
-  console.log({ userInfo });
-  const token = await axios
+  dispatch(startFetchingUser());
+  const response = await axios
     .post(api.PERSONA_LOGIN_URL, userInfo)
-    .then(token => token);
-  const { data } = token;
-  const user = await axios
-    .get(api.PERSONA_FETCH_USER, {
-      headers: {
-        AuthUser: "",
-        Authorization: `OAuth ${data.token}`,
-        uuid: `${data.uuid}`,
-        "Access-Control-Allow-Origin": "*"
-      },
-      method: "POST",
-      body: userInfo
-    })
-    .then(token => console.log(token));
+    .then(token => token)
+    .catch(err => dispatch(failFetchingUser()));
 
-  // dispatch(recieveUserInfo(user));
+  if (response && response.status === 200) {
+    window.location.href = "/";
+    const { data } = response;
+    setSession(data);
+    dispatch(recieveUserInfo(data.uuid));
+  }
+
+  // const user = await axios
+  //   .get(api.PERSONA_FETCH_USER, {
+  //     headers: {
+  //       AuthUser: "",
+  //       Authorization: `OAuth ${data.token}`,
+  //       uuid: `${data.uuid}`,
+  //       "Access-Control-Allow-Origin": "*"
+  //     },
+  //     method: "POST",
+  //     body: userInfo
+  //   })
+  //   .then(token => console.log(token));
 };
 
 export const fetchSingleArticle = articleUid => async dispatch => {
-  console.log("fetching");
-  const article = await fetch(`${api.LETTERA_ARTICLE_URL}/${articleUid}`)
+  const article = await fetch(
+    `${api.LETTERA_ARTICLE_URL}/${articleUid}`,
+    handleAuthentication()
+  )
     .then(res => res.json())
     .then(article => {
-      // replace url with article url (
+      // replace url with article title (
       // TODO: replace spaces with (-), some articles not working
-      // .replace(/ /g, "-")
-      // window.history.pushState({}, null, article.title);
+      // const { title } = article;
+      // if (title) {
+      //   const articleTitle = JSON.stringify(article.title.replace(/ /g, "-"));
+      //   window.history.pushState(
+      //     { article_id: article.uuid },
+      //     null,
+      //     articleTitle
+      //   );
+      // }
       return article;
     });
-  console.log("dispatched");
   dispatch(loadArticle(article));
 };

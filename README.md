@@ -28,5 +28,3 @@ npm start
 
 - [React](https://reactjs.org/) - Cleint Web framework
 - [Redux](fhttps://redux.js.org/) - managing state
-
-## Authors

@@ -4,7 +4,9 @@ const LoginForm = ({
   showLoginForm,
   setShowLoginForm,
   handleChange,
-  handleLogin
+  handleLogin,
+  loading,
+  invalidate
 }) => {
   return (
     <section className="loginForm__container">
@@ -16,6 +18,12 @@ const LoginForm = ({
       >
         <div className="Form__Drawer">
           <div className="content">
+            {invalidate && (
+              <span className="error">
+                Something went wrong, please try again
+              </span>
+            )}
+
             <form class="login-form">
               <input
                 name="username"
@@ -29,10 +37,9 @@ const LoginForm = ({
                 placeholder="password"
                 onChange={handleChange}
               />
-              <button onClick={e => handleLogin(e)}>Sing in</button>
-              <p class="message">
-                Not registered? <a href="#">Create an account</a>
-              </p>
+              <button onClick={e => handleLogin(e)}>
+                {loading ? "Signing in..." : "Sign in"}
+              </button>
             </form>
           </div>
         </div>

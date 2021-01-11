@@ -17,6 +17,26 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentArticle: action.payload.currentArticle
       };
+    case types.USER_RECEIVE:
+      console.log({ action });
+      return {
+        ...state,
+        user: action.payload.userId,
+        loading: false,
+        invalidate: false
+      };
+    case types.USER_LOADING:
+      return {
+        ...state,
+        loading: true,
+        invalidate: false
+      };
+    case types.USER_FETCH_FAIL:
+      return {
+        ...state,
+        loading: false,
+        invalidate: true
+      };
     default:
   }
   return state;
