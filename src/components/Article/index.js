@@ -8,7 +8,8 @@ const Article = ({
   handleLoadArticle,
   isList,
   isArticleView,
-  status
+  forbidden,
+  hasSubscription
 }) => {
   if (!article) return null;
   const {
@@ -22,7 +23,7 @@ const Article = ({
     uuid,
     premium
   } = article;
-  const isPremium = premium || status;
+  const isPremium = premium || forbidden;
   const listImageClass = classnames("Article__image", {
     "Article__image-isList": isList
   });
@@ -35,7 +36,7 @@ const Article = ({
     return `${date.getFullYear()}.${date.getMonth()}.${date.getDate()} ${date.getHours()}:${date.getMinutes()} `;
   };
 
-  if (isPremium && isArticleView) {
+  if (isPremium && isArticleView && !hasSubscription) {
     const { not_entitled } = article;
     const { articlePreview } = not_entitled;
     return (
